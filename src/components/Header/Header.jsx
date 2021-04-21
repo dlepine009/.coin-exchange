@@ -36,7 +36,7 @@ export default class Header extends Component {
 
                     <H1>
                         Coin Exchange
-          </H1>
+                    </H1>
                 </HeaderApp>
             </div>
         )
