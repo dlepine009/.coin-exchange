@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-//import './AccountBalance.css'
 import styled from 'styled-components'
 
 const Section = styled.section`
@@ -12,25 +11,25 @@ const Section = styled.section`
 `;
 
 
-export default class AccountBalance extends Component {
-
-    render() {
-        const buttonText = this.props.showBalance ?
-            'Hide Balance' : 'Show Balance';
-
-        let balance = this.props.showBalance ?
-            <span>Balance: ${this.props.amount} </span>
-            : null
+export default function AccountBalance(props) {
 
 
-        return (
-            <Section>
-                {balance}
-                <button onClick={this.props.handleToggleShowBalance}>{buttonText}</button>
-            </Section>
-        );
-    }
+    const buttonText = props.showBalance ?
+        'Hide Balance' : 'Show Balance';
+
+    let balance = props.showBalance ?
+        <span>Balance: ${props.amount} </span>
+        : null
+
+
+    return (
+        <Section>
+            {balance}
+            <button onClick={props.handleToggleShowBalance}>{buttonText}</button>
+        </Section>
+    );
 }
+
 
 
 

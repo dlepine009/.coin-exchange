@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import Coin from '../Coin/Coin';
 import styled from 'styled-components';
 
@@ -13,38 +13,38 @@ font - size: 1.4rem;
 `
 
 
-export default class CoinList extends Component {
-    render() {
-        const balance = this.props.showBalance ?
-            <th>Balance</th> : null;
-        return (
-            <div>
-                <Table>
-                    <thead>
-                        <tr>
-                            <th> Name </th>
-                            <th> Ticker </th>
-                            <th> Price </th>
-                            {balance}
-                            <th> Actions </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            this.props.coinData.map(({ name, ticker, price, balance }) =>
-                                <Coin key={ticker}
-                                    handleRefresh={this.props.handleRefresh}
-                                    name={name}
-                                    ticker={ticker}
-                                    balance={balance}
-                                    showBalance={this.props.showBalance}
-                                    price={price} />)
-                        }
+export default function CoinList(props) {
+
+    const balance = props.showBalance ?
+        <th>Balance</th> : null;
+    return (
+        <div>
+            <Table>
+                <thead>
+                    <tr>
+                        <th> Name </th>
+                        <th> Ticker </th>
+                        <th> Price </th>
+                        {balance}
+                        <th> Actions </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        props.coinData.map(({ key, name, ticker, price, balance, tickerId }) =>
+                            <Coin key={key}
+                                handleRefresh={props.handleRefresh}
+                                name={name}
+                                ticker={ticker}
+                                balance={balance}
+                                showBalance={props.showBalance}
+                                price={price}
+                                tickerId={key} />)
+                    }
 
 
-                    </tbody>
-                </Table>
-            </div>
-        )
-    }
+                </tbody>
+            </Table>
+        </div>
+    )
 }
