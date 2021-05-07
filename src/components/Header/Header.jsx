@@ -14,6 +14,7 @@ const AppLogo = styled.img`
 const HeaderApp = styled.header`
     background - color: #282c34;
     min - height: 20vh;
+    width: 100%;
     display: flex;
     flex - direction: row;
     align - items: center;
@@ -22,7 +23,10 @@ const HeaderApp = styled.header`
 `;
 
 const H1 = styled.h1`
-    font - size: 4rem;
+    font - size: 3rem;
+    line-height: 8rem;
+    font-weight: bold;
+    min-width: 300px;
 `;
 
 

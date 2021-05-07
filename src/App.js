@@ -5,6 +5,10 @@ import Header from './components/Header/Header';
 import styled from 'styled-components';
 import axios from 'axios';
 
+//import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootswatch/dist/flatly/bootstrap.min.css';
+
+import '@fortawesome/fontawesome-free/js/all';
 
 const Div = styled.div`
     text-align: center;
@@ -22,7 +26,7 @@ const formatPrice = price => parseFloat(Number(price).toFixed(4));
 function App(props) {
 
   const [balance, setBalance] = useState(10000);
-  const [showBalance, setShowBalance] = useState(true);
+  const [showBalance, setShowBalance] = useState(false);
   const [coinData, setCoinData] = useState([]);
 
   const componentDidMount = async () => {
@@ -51,12 +55,18 @@ function App(props) {
     }
   });
 
-
-
-
-
-
-
+  const handleTransaction = (isBuy, valueChangeId) => {
+    var balanceChange = isBuy ? 1 : -1
+    const newCoinData = coinData.map(function (values) {
+      let newValues = { ...values };
+      if (valueChangeId === values.key) {
+        newValues.balance += balanceChange
+        setBalance(oldBalance => oldBalance - balanceChange * newValues.price);
+      }
+      return newValues;
+    })
+    setCoinData(newCoinData);
+  }
 
   const handleRefresh = async (valueChangeId) => {
     const tickerUrl = `https://api.coinpaprika.com/v1/tickers/${valueChangeId}`;
@@ -77,6 +87,9 @@ function App(props) {
   const handleToggleShowBalance = () => {
     setShowBalance(oldValue => !oldValue);
   }
+  const handleAirDrop = () => {
+    setBalance(balance => balance + 1200)
+  }
 
   return (
     <Div>
@@ -84,9 +97,11 @@ function App(props) {
       <AccountBalance
         amount={balance}
         showBalance={showBalance}
-        handleToggleShowBalance={handleToggleShowBalance} />
+        handleToggleShowBalance={handleToggleShowBalance}
+        handleAirDrop={handleAirDrop} />
       <CoinList
         coinData={coinData}
+        handleTransaction={handleTransaction}
         handleRefresh={handleRefresh}
         showBalance={showBalance} />
     </Div>
